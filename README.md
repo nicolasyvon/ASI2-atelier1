@@ -1,6 +1,6 @@
-#Projet ASI2-atelier 1
+# Projet ASI2-atelier 1
 
-##Contributeurs: Clain Nicolas, So Absa, Yemele Ivana, Azzouzi Mouna
+## Contributeurs: Clain Nicolas, So Absa, Yemele Ivana, Azzouzi Mouna
 
 ### Activités réalisées par personnes:
 
