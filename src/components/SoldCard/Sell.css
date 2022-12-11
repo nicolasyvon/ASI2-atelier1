@@ -1,0 +1,38 @@
+.Sell {
+  text-align: center;
+}
+
+.Sell-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .Sell-logo {
+    animation: Sell-logo-spin infinite 20s linear;
+  }
+}
+
+.Sell-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.Sell-link {
+  color: #61dafb;
+}
+
+@keyframes Sell-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
