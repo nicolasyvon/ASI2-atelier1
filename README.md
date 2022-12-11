@@ -32,6 +32,10 @@ Lien GitHub: https://github.com/nicolasyvon/ASI2-atelier1.git
 
 ### Précision sur l'application web :
 - Pour l'authentification on utilise un système de cookies. Cependant, une fois l'authentification faite celle-ci ne nous redirige pas directement vers la page Home. Pour voir l'effet du cookie on doit donc utilisé le boutton permettant de revenir en arrière et réactualiser la page afin de relancer la fonction fetch. 
+- Sur certain ordinateur il peut y avoir un problème pour scroll. Nous ne savons pas d'où vient le problème. Donc lors de l'utilisation de l'application web vous devriez avoir comme page:
+
+
+![interface](https://user-images.githubusercontent.com/72151863/206925456-27511bff-cfe5-4119-a95b-4d72e85c010f.png)
 
 
 
