@@ -41,7 +41,10 @@
             socket.on('welcome', function(id) { 
                 console.log("retouuur acces")   
                
-            });         
+            }); 
+            socket.on('connectToRoom',function(data){
+                console.log(data )           
+            });
 
             if (input.value) {           
                 input.value = '';  
@@ -61,13 +64,23 @@
             
             }  });
 
-            socket.on('chat message', function(msg) {    
+            socket.on('message room', function(message ) {    
             var item = document.createElement('li'); 
-            item.textContent = msg;   
+            item.textContent = message;   
             messages.appendChild(item); 
             window.scrollTo(0, document.body.scrollHeight);  });
-        
+            //history = saveChat(socket);
+            //console.log(history);
         }
+
+    /*
+        function  saveChat(socket){
+            var history = [];
+            history.push(message);
+            return history;
+
+        }
+        */
             
 
 

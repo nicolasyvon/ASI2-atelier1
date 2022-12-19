@@ -10,8 +10,8 @@ class Users {
    
 
     addUser({id, username,room} ) {
-    username = username.toLowerCase()
-    room = room.toLowerCase()
+    //username = username.toLowerCase()
+    //room = room.toLowerCase()
 
      //check for existing users
      const existingUser = this.users.find((user) => {
@@ -45,7 +45,7 @@ getUser(id){
         user.id === id
        
     })
-    return [this.users.id, this.users.username,this.users.room];
+    return this.users.id, this.users.username,this.users.room;
     
 }
 

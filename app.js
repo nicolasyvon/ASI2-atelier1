@@ -1,5 +1,6 @@
 
 const express = require('express');
+const { use } = require('express/lib/application');
 const { join } = require('path');
 const { disconnect } = require('process');
 const app = express();
@@ -25,15 +26,16 @@ var server = http.listen(3000, () => {
     console.log("server is running on port", server.address().port);
     });
 
+var room = 0;
+//25 52 66 83
 //Récupération des données de l'user
 io.on("connection", async (socket) => {
-
+    console.log("numero de la room actuelle",room)
     var ID = socket.handshake.query.userID
-    
     let userConnected;
     let reponse = await fetch("http://vps.cpe-sn.fr:8083/user/"+ID);
     userConnected = await reponse.json();
-    console.log(userConnected);
+    //console.log(userConnected);
         
     console.log("OKKK logged in "+userConnected['login']);
     socket.emit('welcome', ID);
@@ -41,57 +43,55 @@ io.on("connection", async (socket) => {
     listUsersCo.push(ID);
     console.log(listUsersCo);
     
+    if (nbUsers[room] == undefined || nbUsers[room] == 2 ) {
+        //socket.join(room);
+        room ++;
+        var user = {
+            id: ID, 
+            username:userConnected['login'],
+            room: room
+        }
+        U.addUser(user)
+        console.log("User added in room ",room);
+        nbUsers[room] = 1;
+        socket.join("room"+room);
+        socket.emit('connectToRoom', ID);
+        socket.in("room"+room).emit('connectToRoom', "You are in room no "+room);
+        console.log()
+        console.log(socket.rooms); // Set { <socket.id>, "room1" }
+        
+    } else {
+        var user = {
+            id: ID, 
+            username:userConnected['login'],
+            room: room
+        }
+        U.addUser(user);
+
+        console.log("User added in room ", room);
+        nbUsers[room] ++;
+        socket.join("room"+room);
+        socket.emit('connectToRoom', ID);
+        socket.in("room"+room).emit('connectToRoom', "You are in room no "+room);
+        console.log(socket.rooms); // Set { <socket.id>, "room1" }
+    } 
+
 
     
-    socket.on('join',(room) => {   
-        if (nbUsers[room] == undefined || nbUsers[room] == 2 ) {
-            //socket.join(room);
-
-            U.addUser({
-                id: ID, 
-                username:userConnected['login'],
-                room: room
-            })
-
-            console.log("User added in room ",room);
-            console.log("User details  ",getUser(ID));
-            
-            nbUsers[room] = 1;
-            
-        } else {
-            //socket.join(room);
-            U.addUser({
-                id: ID, 
-                username:userConnected['login'],
-                room: room
-            })
-
-            console.log("User added in room ",room);
-            console.log("User details  ",getUser(ID));
-            nbUsers[room] ++;
-        } 
-
-        })
-        socket.join(U.getUserRoom(ID));
-        console.log(U.getUserRoom(ID));
-   /* 
     //gestion du chat 
     socket.on('chat message', (msg) => {   
-        //io.emit('chat message', msg);  
-        console.log(U.getUser(ID));
-        //io.to(user.g.emit('chat message', user.getUser+" : "+msg);
-        console.log(socket.handshake.query.userID);
-    });*/
-
-
+        //io.emit('chat message', msg); 
+        message = user.username +" :  "+ msg;
+        io.to("room"+user.room).emit('message room', message );
+    });
 
 
     //Fin de connexion
     socket.on("disconnect", ()=>{
-
         console.log('bye', socket.handshake.query.userID);
         listUsersCo.pop(socket.handshake.query.userID);
-        console.log(listUsersCo);
+        nbUsers[user.room]-- ;
+        console.log(nbUsers);
     });
 
 
