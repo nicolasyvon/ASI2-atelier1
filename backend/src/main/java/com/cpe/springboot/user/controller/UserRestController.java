@@ -64,8 +64,8 @@ public class UserRestController {
 	@RequestMapping(method=RequestMethod.PUT,value="/user/{id}")
 	public void updateUser(@RequestBody UserDTO user,@PathVariable String id) {
 		user.setId(Integer.valueOf(id));
-		String msg = user.toString();
-		busService.sendMsg(msg ,"UserUpdate2");		
+		//String msg = user.toString();
+		busService.sendMsg(user ,"UserUpdate2");		
 		///return userService.updateUser(user);
 	}
 	
