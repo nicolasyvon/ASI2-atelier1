@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import { Card, Image, Icon } from 'semantic-ui-react'
 
- export const CardDisplay=(props) =>{
+ export const CardPlayer2=(props) =>{
     const item = useSelector(state=> state.cardReducer.value);
     return (
         <Card>
@@ -33,4 +33,4 @@ import { Card, Image, Icon } from 'semantic-ui-react'
 
         );
     }
-export default CardDisplay;
+export default CardPlayer2;

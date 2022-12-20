@@ -1,4 +1,4 @@
-const cardListReducer= (state={value:[]},action) => {
+const listcardReducer= (state={value:''},action) => {
     console.log(action);
     switch (action.type) {
         case 'UPDATE_CURRENT_LIST_CARD':
@@ -8,4 +8,4 @@ const cardListReducer= (state={value:[]},action) => {
     }
 }
 
-export default cardListReducer;
+export default listcardReducer;

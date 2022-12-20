@@ -14,8 +14,6 @@ export const ListCards= ( state={items:undefined} )=>{
     dispatch(updateCurrentCard(item));
   
   }
-
-  
   
   
   const [cards, setCards] = useState([]);

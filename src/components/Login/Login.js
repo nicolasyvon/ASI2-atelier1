@@ -1,14 +1,14 @@
-import { clear } from '@testing-library/user-event/dist/clear';
-import React, { useEffect, useState } from "react"
-import { Form, Header,Button } from 'semantic-ui-react'
-import { BrowserRouter, Routes, Route, NavLink} from "react-router-dom";
-import { HomePage } from '../HomePage/HomePage';
-import Cookies from 'universal-cookie';
+import React, { useEffect, useState } from "react";
+import { Form, Header,Button } from 'semantic-ui-react';
+import "./Login.css";
+import {  useDispatch } from 'react-redux';
+import {updateUserId} from '../../actions/index';
+import { useNavigate } from "react-router-dom";
 
 
 export const Login = (props) =>{
-    const cookies = new Cookies();
 
+    const dispatch = useDispatch();
     let [authMode, setAuthMode] = useState("signin")
     const [log, setlog] = useState({});
 
@@ -52,7 +52,7 @@ export const Login = (props) =>{
                  })
                 .then(data => {
                   setlog(data)
-                  cookies.set('idUser', data.toString(), { path: '/' });
+                  dispatch(updateUserId(data))
                  }
                  
                  )
@@ -62,49 +62,51 @@ export const Login = (props) =>{
         fetchData()
 
         return (<div>home</div>)};
-
+    const navigate = useNavigate();
     function submitlog(data){
         console.log(currentUser)
+        navigate('/'+data);
         Logverif()
     }
     
     if (authMode === "signin") {
         return (
-        <Form className="form-control">
-            <Header as='h4' dividing className="Auth-form-title">
-            Sign In
-            </Header>
-            <br></br>
+        <div className='Login'>
+            <Form className="form-control">
+                <Header as='h4' dividing className="Auth-form-title">
+                Sign In
+                </Header>
+                <br></br>
+
+                
+                <Form.Field widths='equal' className="form-outline mb-12">
+                    <Form.Input fluid label='username'  placeholder='username' name="username" onChange={processInput} value={currentUser.username} />
+                </Form.Field>
+                <br></br>
 
             
-            <Form.Field widths='equal' className="form-outline mb-12">
-                <Form.Input fluid label='username'  placeholder='username' name="username" onChange={processInput} value={currentUser.username} />
-            </Form.Field>
-            <br></br>
+                <Form.Field  className="form-outline mb-6">
+                    <Form.Input type="password" label="Password" placeholder="" onChange={processInput}  name="password" value={currentUser.password}/>
+                </Form.Field>
+                <br></br>
 
-         
-            <Form.Field  className="form-outline mb-6">
-                <Form.Input type="password" label="Password" placeholder="" onChange={processInput}  name="password" value={currentUser.password}/>
-            </Form.Field>
-            <br></br>
+                <Button type='submit'  className="btn btn-primary btn-block mb-4" onClick={()=>submitlog("")}>Submit</Button>
 
-            <Button type='submit'  className="btn btn-primary btn-block mb-4" onClick={submitlog}>Submit</Button>
-
-            <div className="text-center">
-             Not registered yet?{" "}
-              <a className="link-primary" onClick={changeAuthMode}>
-                Sign Up
-              </a>            
-              </div>
-        </Form>
+                <div className="text-center">
+                Not registered yet?{" "}
+                <a className="link-primary" onClick={changeAuthMode}>
+                    Sign Up
+                </a>            
+                </div>
+            </Form>
+        </div>
 
     );
 
     
     }
     return (
-    <div className='Login'> 
-    <BrowserRouter>   
+    <div className='SignUp'> 
     <Form className="form-control">
         <Header as='h4' dividing className="Auth-form-title">
         Sign Up
@@ -139,12 +141,6 @@ export const Login = (props) =>{
         </a>            
         </div>
     </Form>
-    <div>
-                        <Routes>
-                            <Route path='/soldCard' element={<HomePage/>} />
-                        </Routes>
-                    </div>
-    </BrowserRouter>
     </div>
 );
 }

@@ -4,8 +4,9 @@ import { BrowserRouter, Routes, Route} from "react-router-dom";
 import { Sell } from '../SoldCard/Sell';
 import { Buy } from '../SoldCard/Buy';
 import {Login} from '../Login/Login';
-import { Jeu } from "../../Jeu";
-import { PreJeuPage } from "../JeuPage/PreJeuPage";
+import { ChatBox } from "../ChatBox/ChatBox";
+import {PreJeuPage} from "../JeuPage/PreJeuPage"
+import { JeuPage } from "../JeuPage/JeuPage";
  
 
 
@@ -16,18 +17,14 @@ export const BottomSide= (props) =>{
         <div className='BottomSide'>
             
             <BrowserRouter>
-                <div>
                     <Routes>
                         <Route path='/' element={<ButtonContainer/>} />
                         <Route path='/Sell' element={<Sell/>} />
                         <Route path='/Buy' element={<Buy/>} />
                         <Route path='/Connection' element={<Login/>}/>
                         <Route path='/Play' element={<PreJeuPage/>}/>
-                        <Route path='/Jeu' element={<Jeu/>}/>
-
-
+                        <Route path='/Jeu' element={<JeuPage/>}/>
                     </Routes>
-                </div>
             </BrowserRouter>
 
         </div>

@@ -5,7 +5,7 @@ import { HomePage } from "./components/HomePage/HomePage";
 
 export const Main =(props) =>{
     return (
-        <HomePage></HomePage>
+        <HomePage/>
     );
 
 }

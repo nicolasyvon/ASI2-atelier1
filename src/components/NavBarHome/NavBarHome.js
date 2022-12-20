@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from "react"
-import Cookies from "universal-cookie";
 import './NavBarHome.css';
+import { useSelector } from 'react-redux';
 
 export const NavBarHome= (props) =>{
-    const cookies = new Cookies();
     const [moneyUser, setMoneyUser] = useState(-1);
     const [nameUser, setNameUser] = useState('noName');
+    let currentUserId=useSelector(state=>state.userReducer.user_id);
     const fetchData = () => {
-      fetch("http://localhost:8083/user/"+cookies.get('idUser'))
+      fetch("http://localhost:8083/user/"+currentUserId)
          .then(response => {
           //console.log(response.json())
              return response.json()
            })
           .then(data => {
-            setMoneyUser(data['account'])
-            setNameUser(data['surName'])
+            setMoneyUser(data['account']);
+            console.log("fetch:"+moneyUser);
+            setNameUser(data['surName']);
+            console.log("fetch:"+nameUser);
            })
        }
        useEffect(() => {
-            fetchData()
-          }, [])
-      //cookies.addChangeListener(fetchData);
+        fetchData()
+          }, moneyUser)
     
     return(
         <div>

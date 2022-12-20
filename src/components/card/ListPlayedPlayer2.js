@@ -7,35 +7,35 @@ import { Card, Image, Icon, Feed } from 'semantic-ui-react'
 
 
 
-export const ListCardPlayed= ( state={items:undefined} )=>{
+export const ListPlayedPlayer2= ( state={items:undefined} )=>{
   const listeCards = useSelector(state=> state.listcardReducer.value);
   console.log(listeCards, "liste des cartes reçu")
   const item1 = {
-    Name: "name1",
-    Description: "name1",
-    Attack: "name1",
-    Power: "name1",
+    name: "name1",
+    description: "name1",
+    attack: "name1",
+    power: "name1",
 
   }
   const item2 = {
-    Name: "name2",
-    Description: "ndes2",
-    Attack: "name1",
-    Power: "name1",
+    name: "name2",
+    description: "ndes2",
+    attack: "name1",
+    power: "name1",
 
   }
   const item3 = {
-    Name: "name3",
-    Description: "DES3",
-    Attack: "name1",
-    Power: "name1",
+    name: "name3",
+    description: "DES3",
+    attack: "name1",
+    power: "name1",
 
   }
   const item4 = {
-    Name: "name4",
-    Description: "des4",
-    Attack: "name1",
-    Power: "name1",
+    name: "name4",
+    description: "des4",
+    attack: "name1",
+    power: "name1",
 
   }
 
@@ -111,7 +111,7 @@ export const ListCardPlayed= ( state={items:undefined} )=>{
 
     </div>*/
     <>
-      {listeCards.map(item => {
+      {listPlayer2.map(item => {
 
         return (
         <Card>
@@ -147,10 +147,10 @@ export const ListCardPlayed= ( state={items:undefined} )=>{
            
         </Card>
 
-
+        
           
           )})}
         </>
     );
 }
-export default ListCardPlayed;
+export default ListPlayedPlayer2;

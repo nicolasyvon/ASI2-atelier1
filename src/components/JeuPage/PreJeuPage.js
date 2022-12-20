@@ -1,6 +1,6 @@
 import 'semantic-ui-css/semantic.min.css'
 import { ListCards } from "../card/ListCards";
-import store from '../SoldCard/store';
+import store from '../../store';
 import { BrowserRouter, Routes, Route, NavLink} from "react-router-dom";
 import { Provider } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -10,60 +10,93 @@ import { useNavigate } from 'react-router-dom';
 import {Button} from '../Button/Button';
 import "../BottomSide/container/ButtonContainer";
 import { Jeu } from '../../Jeu';
+import React, { useEffect, useState } from "react"
+import './JeuPage.css'
 
 export const PreJeuPage =(props) =>{
+    const cardList = []
+    let dispatch=useDispatch();
+    dispatch(updateListCard(cardList));
 
     const item1 = {
-        Name: "name1",
-        Description: "name1",
-        Attack: "name1",
-        Power: "name1",
+        name: "name1",
+        description: "name1",
+        attack: "name1",
+        power: "name1",
     
       }
       const item2 = {
-        Name: "name2",
-        Description: "ndes2",
-        Attack: "name1",
-        Power: "name1",
+        name: "name2",
+        description: "ndes2",
+        attack: "name1",
+        power: "name1",
     
       }
       const item3 = {
-        Name: "name3",
-        Description: "DES3",
-        Attack: "name1",
-        Power: "name1",
+        name: "name3",
+        description: "DES3",
+        attack: "name1",
+        power: "name1",
     
       }
       const item4 = {
-        Name: "name4",
-        Description: "des4",
-        Attack: "name1",
-        Power: "name1",
+        name: "name4",
+        description: "des4",
+        attack: "name1",
+        power: "name1",
     
       }
+      const item5 = {
+        name: "name5",
+        description: "des5",
+        attack: "name1",
+        power: "name1",
+    
+      }
+      const [cards, setCards] = useState([]);
+      const fetchData = () => {
+        fetch("http://vps.cpe-sn.fr:8083/cards")
+           .then(response => {
+               return response.json()
+             })
+            .then(data => {
+              setCards(data)
+             })
+         }
+         useEffect(() => {
+              fetchData()
+            }, [])
 
-      const liste = [item1,item2,item3,item4]
-
-      const cardList = []
+      const liste = [item1,item2,item3,item4,item5]
+      
+      let isAdded = false;
       function handleclick(item) {
-        /*
-        for (element in cardList){
-            if (element != item){
-            }
-        }
-        */
-        cardList.push(item)
-        console.log('The link has been  clicked.', cardList);
+        isAdded = false;
+       console.log("carde",cardList.length)
+       if (cardList.length < 4) {
+        cardList.push(item);
+        isAdded = true}
+       else{
+         window.alert("Choose only 4 cards My friend !")
+       }        
+        console.log(cardList.includes(item),"liste des cartes")
         
-        console.log(cardList,"liste des cartes")
       }
 
     
       
-    //const navigate = useNavigate();
-    // function redirectHandler(data){
-    //     console.log("redirection");
-    //     navigate('/'+data);};
+    const navigate = useNavigate();
+     function redirectHandler(data){
+        if (cardList.length < 4){
+          window.alert("Il faut choisir 4 cartes pour pouvoir jouer !")
+        }
+        else{
+
+          console.log("redirection");
+           navigate('/'+data);
+          };
+        }
+        
     
       function StartPlay(){
         let dispatch=useDispatch();
@@ -76,12 +109,17 @@ export const PreJeuPage =(props) =>{
 
     return (
         <>
-       
+        <div>
+
+        
+        </div>
 
         {liste.map(item => {
 
-        return (
-        <Card>
+          if (isAdded){
+            return(
+
+            <Card className='class'>
             <Card.Content>
                 <Card.Meta>     
             <Feed>
@@ -92,9 +130,23 @@ export const PreJeuPage =(props) =>{
                 <Feed.Summary>
 
                 <ul>
-                    <li >Name: {item.Name}</li>
-                    <li >Description: {item.Description}</li>
-                </ul>
+                    <li >Name: {item.name} </li>
+                    <li >Description: {item.description}  </li>
+                    <li >Attack: {item.attack}</li>
+                    <li >
+                    <a><Icon name='protect'/></a>  Defense: {item.defence} </li>
+                    <li >
+                        <a><Icon name='battery three quarters Energy'/></a>  Energy: {item.energy}</li>
+                    <li >
+                        <a><Icon name='heart' /></a> HP: {item.hp}
+
+                    </li>
+                    <li>
+                        <p>Added</p>
+                    </li>
+
+                    </ul>
+
                 <Image src="/images/smiley.jpg" wrapped ui={false} onClick={() =>handleclick(item)} />
                 </Feed.Summary>
                 <Feed.Meta>
@@ -112,8 +164,66 @@ export const PreJeuPage =(props) =>{
             </Card.Content>
         
         </Card>
+            )
+
+          }
+          else{
+            return(
+              <Card>
+                  <Card.Content>
+                      <Card.Meta>     
+                  <Feed>
+                      <Feed.Event>
+                          <Feed.Label>
+                          </Feed.Label>
+                      <Feed.Content>
+                      <Feed.Summary>
+                    <ul>
+                    <li >Name: {item.name} </li>
+                    <li >Description: {item.description}  </li>
+                    <li >Attack: {item.attack}</li>
+                    <li >
+                    <a><Icon name='protect'/></a>  Defense: {item.defence} </li>
+                    <li >
+                        <a><Icon name='battery three quarters Energy'/></a>  Energy: {item.energy}</li>
+                    <li >
+                        <a><Icon name='heart' /></a> HP: {item.hp}
+
+                    </li>
+                    
+
+                    </ul>
+      
+                      <Image src="/images/smiley.jpg" wrapped ui={false} onClick={() =>handleclick(item)} />
+                      </Feed.Summary>
+                      <Feed.Meta>
+                          <Feed.Like>
+                          <Icon name='money bill alternate outline' />
+                          </Feed.Like>
+                      </Feed.Meta>
+                          
+                      </Feed.Content>
+                      
+                      </Feed.Event>
+                  </Feed>
+                          
+                      </Card.Meta>
+                  </Card.Content>
+              
+              </Card>
+                  
+
+            )
+
+          }
+          
         
-        )})};
+        })}
+        <ul>
+        <button class="bottom" className="bg-black text-white p-2.5 w-fit mt-9 " onClick={()=>redirectHandler("Jeu")}>Bouton</button>
+        </ul>    
+         
+        ;
 
         
 

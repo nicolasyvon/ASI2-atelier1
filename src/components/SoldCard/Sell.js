@@ -3,14 +3,14 @@ import { Grid, Segment,Menu } from 'semantic-ui-react'
 import { User } from '../user/containers/User'
 import {ListCards} from '../card/ListCards'
 import { useSelector } from 'react-redux';
-import Cookies from "universal-cookie";
+import "./Sell.css";
 
 
 
 //Create function component
 export const Sell =(props) =>{
   const item = useSelector(state=> state.cardReducer.value);
-  const cookies = new Cookies();
+  let currentUserId=useSelector(state=>state.userReducer.user_id);
 
     const [currentUser,setCurrentUser]= useState({
                                         id:12,
@@ -44,7 +44,7 @@ export const Sell =(props) =>{
 
     function sellCard(){
       let jsonData = { 
-      user_id: parseInt(cookies.get('idUser')), 
+      user_id: parseInt(currentUserId), 
       card_id: item.id,
       
       }

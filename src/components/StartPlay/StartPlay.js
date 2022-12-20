@@ -1,6 +1,6 @@
 import 'semantic-ui-css/semantic.min.css'
 import { ListCards } from "../card/ListCards";
-import store from '../SoldCard/store';
+import store from '../../store';
 import { BrowserRouter, Routes, Route, NavLink} from "react-router-dom";
 import { Provider } from 'react-redux';
 import { useDispatch } from 'react-redux';

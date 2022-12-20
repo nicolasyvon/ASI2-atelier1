@@ -5,7 +5,9 @@ import Cookies from "universal-cookie";
 import CardPlayed from '../card/CardPlayed';
 import ListCardPlayed from '../card/ListCardPlayed';
 import { Provider } from 'react-redux';
-import store from '../SoldCard/store';
+import store from '../../store';
+import ListPlayedPlayer2 from '../card/ListPlayedPlayer2';
+import { ChatInterface } from '../chat/ChatInterface';
 
 //Create function component
 export const JeuPage =(props) =>{
@@ -23,7 +25,7 @@ export const JeuPage =(props) =>{
 
     return (
     <Provider store={store} >
-      <div className='JeuPage'>
+      <div className='JeuPage' style={{width:'100%'}}> 
         <Menu>
           <Menu.Item
             name='heropres'>
@@ -34,21 +36,23 @@ export const JeuPage =(props) =>{
           <Grid.Row columns={3}>
           <Grid.Column>
             <Segment>
-            <p> interface chat</p>
+              <ChatInterface></ChatInterface>
             </Segment>
           </Grid.Column>
           <Grid.Column>
           <Segment>
-
               <ListCardPlayed>
               </ListCardPlayed>
                 <p> interface liste cards</p>
               <button >End Turn</button>
-              </Segment>
+          </Segment>
+          <Segment>
+              <ListPlayedPlayer2>
+              </ListPlayedPlayer2>
+          </Segment>
           </Grid.Column>
           <Grid.Column>
             <CardPlayed>
-
             </CardPlayed>
                 <button >Attack</button>
           </Grid.Column>
