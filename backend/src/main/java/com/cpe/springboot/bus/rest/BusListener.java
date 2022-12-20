@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.jms.JMSException;
 import javax.jms.Message;
+import javax.jms.TextMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
@@ -14,6 +16,9 @@ import org.springframework.stereotype.Component;
 
 import com.cpe.springboot.user.controller.UserService;
 import com.cpe.springboot.user.model.UserDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import antlr.collections.List;
 
@@ -24,48 +29,35 @@ public class BusListener {
 	UserService userService;
     @Autowired
     JmsTemplate jmsTemplate;
+    @Autowired
+    ObjectMapper objectMapper;
 
-    @JmsListener(destination = "UserUpdate2", containerFactory = "connectionFactory")
-    public void receiveMessage(String msgStr, Message message) {
-            System.out.println("[BUSLISTENER] [CHANNEL UserUpdate1] RECEIVED String MSG=["+msgStr+"]");
-            UserDTO user  = fromStringToUserDTO(msgStr);
-            userService.updateUser(user);
-            System.out.println("on a update " + user.getLogin()  + " en utilisant le bus.");
+    private void doReceive(String busName, TextMessage message) {
+        try {
+            String clazz = message.getStringProperty("ObjectType");
+            Object o = objectMapper.readValue(message.getText(), Class.forName(clazz));
+            
+            System.out.println("[BUSLISTENER] [CHANNEL "+busName+"] RECEIVED String MSG=["+message.getText()+"]");
+
+            if (o instanceof UserDTO) {
+                UserDTO userDTO  = (UserDTO)o;
+                userService.updateUser(userDTO);
+                System.out.println("on a update " + userDTO.getLogin()  + " en utilisant le bus.");
+
+
+            }
+
+        } catch (JMSException | JsonProcessingException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+        }
     }
     
-    
-	public UserDTO fromStringToUserDTO(String msgStr) {
-        String[] splitMsgStr = msgStr.trim().split("\\s+");
-		System.out.println("split par espace"+ String.valueOf(splitMsgStr[0]));
-		Set<Integer> cardList = new HashSet<>();
+    @JmsListener(destination = "UserUpdate2", containerFactory = "connectionFactory")
+    public void receiveMessage(TextMessage  message) {
+        	doReceive("UserUpdate2", message);
 
-		UserDTO user = new UserDTO();
-        user.setLogin(String.valueOf(splitMsgStr[0]));
-        user.setPwd(String.valueOf(splitMsgStr[1]));
-        user.setAccount(Float.parseFloat(splitMsgStr[2]));
-        user.setLastName(String.valueOf(splitMsgStr[3]));
-        user.setSurName(String.valueOf(splitMsgStr[4]));
-        
-        user.setEmail(String.valueOf(splitMsgStr[5]));
-
-		//Set<Integer> cardList =fromStringtoList(String.valueOf(splitMsgStr[6]));
-        user.setCardList(cardList);
-        return user;
-	}
-	
-	public Set<Integer> fromStringtoList (String strcardlist) {
-		String strcardl = strcardlist.substring(1, strcardlist.length() - 1);
-        String[] cardliststr = strcardl.trim().split("\\s*,\\s*");
-		Set<Integer> cardList = new HashSet<>();
-		System.out.println(cardliststr.length);
-		for (int i=0 ; i < cardliststr.length ; i++ ) {
-			cardList.add(Integer.parseInt(cardliststr[2]));
-		}
-        return cardList ;
-
-	}
-
-            
-
+    }
+  
 
 }
