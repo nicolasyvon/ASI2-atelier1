@@ -30,7 +30,7 @@ Lien GitHub: https://github.com/nicolasyvon/ASI2-atelier1.git
 - Réalisation d'un backend mettant en place la logique.
 - Mise en place 'une communication entre le backend node.js et le backend SpringbBoot afin de sauvegarder l'historique des conversations.
 - Réaliation d'un diagramme de séquence entre les intéractions Node.js et le Frontend
-
+- Réaliation d'un BackEnd indépendant (Springboot) permettant de logger l’ensemble des messages transmis sur le bus de communication
 
 ### Liste des éléments non réalisés :
 - Récupération de la liste des utilisateurs via Web service sur l’application Room.
