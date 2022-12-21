@@ -30,14 +30,8 @@ export const JeuPage =(props) =>{
           navigate('/'+data);
          };
     function attack(){
-      fetch('http://localhost:8080/attack', {
-
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-          },
-          method: 'GET', 
-      })
+      CardPlayed.item.energy = CardPlayed.item.energy - 10;
+      
     console.log('attacked')
 
     }
