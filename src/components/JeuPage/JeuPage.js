@@ -8,6 +8,9 @@ import { Provider } from 'react-redux';
 import store from '../../store';
 import ListPlayedPlayer2 from '../card/ListPlayedPlayer2';
 import { ChatInterface } from '../chat/ChatInterface';
+import CardPlayer2 from '../card/CardPlayer2';
+import { useNavigate } from 'react-router-dom';
+
 
 //Create function component
 export const JeuPage =(props) =>{
@@ -21,6 +24,24 @@ export const JeuPage =(props) =>{
         money:1000,
       };
     const cookies = new Cookies();
+
+    const navigate = useNavigate();
+    function redirectHandler(data){
+          navigate('/'+data);
+         };
+    function attack(){
+      fetch('http://localhost:8080/attack', {
+
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+          },
+          method: 'GET', 
+      })
+    console.log('attacked')
+
+    }
+       
   
 
     return (
@@ -41,20 +62,25 @@ export const JeuPage =(props) =>{
           </Grid.Column>
           <Grid.Column>
           <Segment>
+              <p> Player 1</p>
               <ListCardPlayed>
               </ListCardPlayed>
-                <p> interface liste cards</p>
-              <button >End Turn</button>
+                <button class="bottom" className="bg-black text-white p-2.5 w-fit mt-9" onClick={()=>redirectHandler("Play")}>End Turn</button>         
           </Segment>
           <Segment>
+              <p> Player 2</p>
               <ListPlayedPlayer2>
               </ListPlayedPlayer2>
           </Segment>
           </Grid.Column>
           <Grid.Column>
+          <h2> Player 1</h2>
             <CardPlayed>
             </CardPlayed>
-                <button >Attack</button>
+            <button class="bottom" className="bg-black text-white p-2.5 w-fit mt-9 " onClick={attack}>Attack</button>    
+            <h2> Player 2</h2>     
+          <CardPlayer2></CardPlayer2>
+
           </Grid.Column>
           </Grid.Row>
         </Grid>

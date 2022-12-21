@@ -1,14 +1,14 @@
 
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { updateCurrentCard } from '../../actions';
+import { updateCurrentCardPlayer2 } from '../../actions';
 import { Card, Image, Icon, Feed } from 'semantic-ui-react'
 
 
 
 
 export const ListPlayedPlayer2= ( state={items:undefined} )=>{
-  const listeCards = useSelector(state=> state.listcardReducer.value);
+  const listeCards = useSelector(state=> state.listcardReducerPlayer2.value);
   console.log(listeCards, "liste des cartes reçu")
   const item1 = {
     name: "name1",
@@ -25,7 +25,7 @@ export const ListPlayedPlayer2= ( state={items:undefined} )=>{
 
   }
   const item3 = {
-    name: "name3",
+    name: "name3 carte",
     description: "DES3",
     attack: "name1",
     power: "name1",
@@ -50,7 +50,7 @@ export const ListPlayedPlayer2= ( state={items:undefined} )=>{
 
   function handleclick(item) {
     console.log('The link has been  clicked.', item);
-    dispatch(updateCurrentCard(item));
+    dispatch(updateCurrentCardPlayer2(item));
     console.log(cards, "cartes")
   }
   

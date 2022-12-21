@@ -77,7 +77,7 @@ export const PreJeuPage =(props) =>{
         cardList.push(item);
         isAdded = true}
        else{
-         window.alert("Choose only 4 cards My friend !")
+         window.alert("Choose only 4 cards My friend ! Clique sur Start pour commencer")
        }        
         console.log(cardList.includes(item),"liste des cartes")
         
@@ -108,16 +108,20 @@ export const PreJeuPage =(props) =>{
       
 
     return (
-        <>
-        <div>
+        // <>
+        <> 
+        <div class="container-fluid py-2">
+    <div class="d-flex flex-row flex-nowrap">
 
         
-        </div>
+    
 
-        {liste.map(item => {
 
-          if (isAdded){
+        {cards.map(item => {
+
+          
             return(
+
 
             <Card className='class'>
             <Card.Content>
@@ -165,65 +169,20 @@ export const PreJeuPage =(props) =>{
         
         </Card>
             )
-
           }
-          else{
-            return(
-              <Card>
-                  <Card.Content>
-                      <Card.Meta>     
-                  <Feed>
-                      <Feed.Event>
-                          <Feed.Label>
-                          </Feed.Label>
-                      <Feed.Content>
-                      <Feed.Summary>
-                    <ul>
-                    <li >Name: {item.name} </li>
-                    <li >Description: {item.description}  </li>
-                    <li >Attack: {item.attack}</li>
-                    <li >
-                    <a><Icon name='protect'/></a>  Defense: {item.defence} </li>
-                    <li >
-                        <a><Icon name='battery three quarters Energy'/></a>  Energy: {item.energy}</li>
-                    <li >
-                        <a><Icon name='heart' /></a> HP: {item.hp}
+          )}
+    {/* <div class="container bg-light"> */}
+    {/* <div class="row"> */}
+    <div class="fixed-bottom d-flex justify-content-center">
+        <button class="bottom" className="bg-black text-white p-2.5 w-fit mt-9 " onClick={()=>redirectHandler("Jeu")}>Start</button>
+          </div>
+        </div>
+        </div> 
 
-                    </li>
-                    
-
-                    </ul>
-      
-                      <Image src="/images/smiley.jpg" wrapped ui={false} onClick={() =>handleclick(item)} />
-                      </Feed.Summary>
-                      <Feed.Meta>
-                          <Feed.Like>
-                          <Icon name='money bill alternate outline' />
-                          </Feed.Like>
-                      </Feed.Meta>
-                          
-                      </Feed.Content>
-                      
-                      </Feed.Event>
-                  </Feed>
-                          
-                      </Card.Meta>
-                  </Card.Content>
-              
-              </Card>
-                  
-
-            )
-
-          }
-          
+    {/* </div> */}
+        {/* </div>          */}
         
-        })}
-        <ul>
-        <button class="bottom" className="bg-black text-white p-2.5 w-fit mt-9 " onClick={()=>redirectHandler("Jeu")}>Bouton</button>
-        </ul>    
-         
-        ;
+        
 
         
 

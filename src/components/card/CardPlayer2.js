@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import { Card, Image, Icon } from 'semantic-ui-react'
 
  export const CardPlayer2=(props) =>{
-    const item = useSelector(state=> state.cardReducer.value);
+    const item = useSelector(state=> state.cardPlayer2Reducer.value);
     return (
         <Card>
             <Image src="/images/smiley.jpg" wrapped ui={false} />
