@@ -1,43 +1,23 @@
-# Projet ASI2-atelier 2
+# BackEnd du jeu de cartes :
 
-## Contributeurs: Clain Nicolas, So Absa, Yemele Ivana, Azzouzi Mouna
+### Contributeur : Nicolas Clain
 
-### Activités réalisées par personnes:
+Liste des fonctionalités:
+- http://localhost:8081/api/game/putUser/userId1/userId2 : permet d'ajouter deux nouvelles personnes au jeu et de les lier. Chaque user créé aura donc au niveau de se paramètres l'id du joueur adverse.
 
-#### So Absa :
-- Backend du Chat
-- Backend permettant de mettre en relation deux joueurs ensemble (Room)
-- Proxy
+- http://localhost:8081/api/game/getUsers : permet d'avoir la liste de tous les utilisateurs ayant accès au jeux. (url utilisé afin de pouvoir debugger).
 
-#### Azzouzi Mouna :
-- Frontend du plateau de jeu et du chat
-- Backend des log des bus de communication
+- http://localhost:8081/api/game/selectCards/userId/card1Id/card2Id/card3Id/card4Id : permet à un joueur de sélectionner les 4 cates avec lesquelles il va jouer.
 
+- http://localhost:8081/api/game/getUser/:userId : permet d'avoir la fiche joueur d'un joueur en particulier.
 
-#### Yemele Ivana :
-- Backend du chat 
-- Backend permettant de mettre en relation deux joueurs ensemble (Room)
-- Sauvegarde de l'historique du chat sur Springboot
+- http://localhost:8081/api/game/getCards : permet d'avoir la liste de toutes les cartes utilisées dans chaque partie. 
 
-#### Clain Nicolas :
-- FrontEnd du chat
-- Backend du jeu
+- http://localhost:8081/api/game/attack/userIdAttack/cardIdAttack/cardIdDefense : permet d'attaquer une autre carte. Cependant, cette requête n'est pas encore finie et pose encore problème. 
 
-Lien GitHub: https://github.com/nicolasyvon/ASI2-atelier1.git
-
-### Liste des éléments réalisés :
-- Réalisation d'un backend node.js permettant de mettre en relation deux utilisateurs entre eux.
-- Réalisation d'un backend mettant en place la logique.
-- Mise en place 'une communication entre le backend node.js et le backend SpringbBoot afin de sauvegarder l'historique des conversations.
-- Réaliation d'un diagramme de séquence entre les intéractions Node.js et le Frontend
+Pour ce qui est de la notification des joueurs lorsqu'un autre joueur a attaqué la fonctionnalité n'a pas encore était créée mais pour la réaliser il faudrait utiliser les websocket afin de pouvoir notifier les joueurs de manière asynchrone. On utiliserait le même procédé pour notifier le joueur en cas de victoire ou défaite.
 
 
-### Liste des éléments non réalisés :
-- Récupération de la liste des utilisateurs via Web service sur l’application Room.
-- Lien entre le FrontEnd et le BackEnd permettant de gérer la logique de jeu. 
+![schema1](1.png)
 
-
-### Précision sur l'application web :
-
-
-
+![schema2](2.png)
