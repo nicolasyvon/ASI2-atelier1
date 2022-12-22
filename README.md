@@ -17,7 +17,5 @@ Liste des fonctionalités:
 
 Pour ce qui est de la notification des joueurs lorsqu'un autre joueur a attaqué la fonctionnalité n'a pas encore était créée mais pour la réaliser il faudrait utiliser les websocket afin de pouvoir notifier les joueurs de manière asynchrone. On utiliserait le même procédé pour notifier le joueur en cas de victoire ou défaite.
 
-
-![schema1](1.png)
-
-![schema2](2.png)
+![1](https://user-images.githubusercontent.com/72151863/209191166-1f0731d8-51e5-4145-bda3-88c03dfefaaa.png)
+![2](https://user-images.githubusercontent.com/72151863/209191169-780ca613-0a86-45d9-b1f8-7f60bb272a36.png)
