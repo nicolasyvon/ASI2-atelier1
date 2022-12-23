@@ -6,6 +6,11 @@ const { disconnect } = require('process');
 const app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+global.CONFIG = require('./config.json');
+
+const Producer = require('./app/services/producer.js');
+
+const springProducer = new Producer({destination: CONFIG.activemq["spring-chat-messaging.topic.send"]});
 
 var listUsersCo= [];
 var listSocketCo= [];
@@ -44,7 +49,6 @@ io.on("connection", async (socket) => {
     console.log(listUsersCo);
     
     if (nbUsers[room] == undefined || nbUsers[room] == 2 ) {
-        //socket.join(room);
         room ++;
         var user = {
             id: ID, 
@@ -55,7 +59,6 @@ io.on("connection", async (socket) => {
         console.log("User added in room ",room);
         nbUsers[room] = 1;
         socket.join("room"+room);
-        socket.emit('connectToRoom', ID);
         socket.in("room"+room).emit('connectToRoom', "You are in room no "+room);
         console.log()
         console.log(socket.rooms); // Set { <socket.id>, "room1" }
@@ -91,11 +94,13 @@ io.on("connection", async (socket) => {
         console.log('bye', socket.handshake.query.userID);
         listUsersCo.pop(socket.handshake.query.userID);
         nbUsers[user.room]-- ;
-        console.log(nbUsers);
-    });
+        socket.in("room"+user.room).emit('donne historique');
+        });
 
-
-    
+    socket.on("voici historique" , (historique) => {
+        console.log("FINALEMENT: ", historique);
+        springProducer.send("Save chat",historique )
+    })
 
 
 });
