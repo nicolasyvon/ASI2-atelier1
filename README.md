@@ -7,7 +7,7 @@
 #### So Absa :
 - Backend du Chat
 - Backend permettant de mettre en relation deux joueurs ensemble (Room)
-- Proxy
+- Proxy : fichier de configuration de nginx pour les redirections
 
 #### Azzouzi Mouna :
 - Frontend du plateau de jeu et du chat
