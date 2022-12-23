@@ -24,6 +24,7 @@
 - Backend du jeu
 
 Lien GitHub: https://github.com/nicolasyvon/ASI2-atelier1.git
+Youtube: https://youtu.be/UZPt5NZQNJw
 
 ### Liste des éléments réalisés :
 - Réalisation d'un backend node.js permettant de mettre en relation deux utilisateurs entre eux.
