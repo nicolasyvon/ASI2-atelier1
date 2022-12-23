@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="messages">
+
+    </ul> 
+
+<form id="form" action="">    
+   <div id="iduser">
+    <label>ID User</label>  
+    <input id="idInput" autocomplete="off" /><button>Send</button>    
+   </div>
+
+  
+</form>
+
+<form id="chat" action="">
+    <div id="chat" >
+        <label>Chat</label>  
+        <input id="chatInput" autocomplete="off" /><button>Send</button>    
+       </div>
+</form>
+<script src="/socket.io/socket.io.js"></script>
+    <script> 
+
+        var form = document.getElementById('form');  
+        var input = document.getElementById('idInput');   
+        var historique = [];
+        form.addEventListener('submit', function(e) { 
+            e.preventDefault(); 
+            const socket = io({ query: {
+                                    userID: input.value
+                                    }
+                                }); 
+                                
+            socket.on('welcome', function(id) { 
+                console.log("retouuur acces")   
+               
+            }); 
+            socket.on('connectToRoom',function(data){
+                console.log(data )           
+            });
+
+            if (input.value) {           
+                input.value = '';  
+            
+            } 
+            startChat(socket); });
+
+        function startChat(socket){
+            var formChat = document.getElementById('chat');  
+            var inputChat = document.getElementById('chatInput'); 
+
+            formChat.addEventListener('submit', function(e) { 
+            e.preventDefault(); 
+            if (inputChat.value) {      
+            socket.emit('chat message', inputChat.value);      
+            inputChat.value = '';  
+            
+            }  });
+
+            socket.on('message room', function(message ) {    
+            var item = document.createElement('li'); 
+            item.textContent = message;   
+            messages.appendChild(item); 
+            console.log(message);
+            window.scrollTo(0, document.body.scrollHeight);  
+
+            historique.push(message);
+
+            console.log(historique)});
+            socket.on('donne historique' ,() => {
+                console.log("on est la l'event voici")
+                socket.emit("voici historique" , historique);
+            });
+        }
+
+            
+
+
+    </script>  
+</body>
+</html>
